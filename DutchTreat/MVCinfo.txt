@@ -1,0 +1,43 @@
+﻿Model - data
+Controller - logic
+View - markup
+
+Views
+
+_Layout shared among pages, and referenced in _ViewStart 
+
+Adding more Views
+
+tag helpers: add _ViewImports
+
+Pages for razor pages
+@page needed to tell asp that its a razor page
+
+need to copy view start for pages
+
+viewbag title in controllers, or in the view depending...
+
+ViewModels
+
+@model declaration 
+
+ad to veiw imports and then use asp
+you can also add them to the labels - why? set focus on input
+
+validation 
+[Required] [EmailAddress] [MaxLength()] [MinLength()] can add error messages
+
+Model Binding affects model state in controller
+checks also to see if rules followed client side
+
+asp-validation-summary="All"or "ModelOnly" etc..
+asp-validation-for="specific field" but need to add 2 more dependencies for them to work
+
+You dont want to include them on every page so @RenderSection false parameter = not required for evrey page
+
+To use a service, extract an interface
+
+then configureservices 
+transient - no data, just methods
+scoped - expensive
+singleton - once and kept

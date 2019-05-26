@@ -1,0 +1,29 @@
+﻿Program.cs
+    - console app that listens to web requests
+    - Builds webhost and tells what class and tells what
+    class to use to listen to web requests.
+
+Startup.cs
+    how to listen to web requests  
+    Configure:
+        Just a pure string for any request...
+        app.Run->await context.Response.WriteAsync("Hello World"); 
+
+index.html
+    serve files!
+    Configure:
+        app.UseStaticFiles();
+        only serves files in wwwroot directory
+		assumes safe files
+
+Default Files:
+	app.UseDefaultFiles();
+	index.html one of the default files
+
+Configure():
+	Order matters
+	defaultfiles changes the default url so static files now knows where to look
+	
+
+
+	
