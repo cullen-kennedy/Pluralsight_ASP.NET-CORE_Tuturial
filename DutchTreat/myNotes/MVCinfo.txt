@@ -41,3 +41,6 @@ then configureservices
 transient - no data, just methods
 scoped - expensive
 singleton - once and kept
+
+
+

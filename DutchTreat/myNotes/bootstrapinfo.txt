@@ -1,0 +1,17 @@
+﻿navbar-expand-md : what breakpoint to expand the navbar. also affects toggler
+
+bootstrap grid:
+	
+	12 columns
+	.col-n takes up n columns
+	.offset-n offsets n cols
+	will automatically wrap
+
+.col-xl-xx: >= 1200px
+.col-lg-xx: >= 992px
+.col-md-xx: >= 768px
+.col-sm-xx: < 768px
+.col-xx: <576px
+
+replacing xx with num of cols scales
+

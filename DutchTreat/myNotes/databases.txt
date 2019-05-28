@@ -1,0 +1,48 @@
+﻿Entity Framework Core
+
+Removes requirement for relational db
+
+class define shape of data model
+
+DbContext : represents class that knows how to execute queiries to data store
+
+Entity Framework Core Tooling
+
+>>> dotnet ef database update
+
+create and update a db if necessary thats going to match the data context defined in our project
+
+what database provider?
+
+in startup.cs
+services.AddDbContext<DutchContext>()
+make db context part of service collection
+
+ConfigureAppConfiguration() in program.cs takes delegate that passes in config builder
+so we can add out own config options
+
+
+
+after database setup, still need to do migrations
+
+dotnet ef migrations add <Name>
+looks at datastores we have and adds code that goes from empty db
+to one that can store info
+
+reference context in controller
+
+Having model declaration in view guarantees at authoring time, names of fields are correct
+
+seeding data override onmodelcreating: specify new specifics or add data with
+HasData
+
+>>>dotnet ef migrations add SeedData
+
+works for simple cases
+
+repository exposes calls to database that we want
+good to make interface for testing
+
+More?
+
+pluralsight.com/courses/entity-framework-core-getting-started

@@ -1,4 +1,5 @@
-﻿using DutchTreat.Services;
+﻿using DutchTreat.Data;
+using DutchTreat.Services;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,12 +13,18 @@ namespace DutchTreat.Controllers
     {
 
         private readonly IMailService _mailService;
-        public AppController(IMailService mailService)
+        private readonly IDutchRepository _repository;
+        //Replace context with repo?
+        //private readonly DutchContext _ctx;
+        public AppController(IMailService mailService, IDutchRepository repository)
         {
             _mailService = mailService;
+            //make calls through repo
+            _repository = repository;
         }
         public IActionResult Index()
         {
+            //var results = _ctx.Products.ToList();
             return View();
         }
         //app/contact -> /contact
@@ -49,6 +56,22 @@ namespace DutchTreat.Controllers
         {
             ViewBag.Title = "About";
             return View();
+        }
+
+        public IActionResult Shop()
+        {
+            //from p in _context.Products 
+            //orderby p.Category
+            //select p;
+            //Use repo Instead of doing it through directly
+            //var results = _ctx.Products
+            //    .OrderBy(p => p.Category)
+            //    .ToList();
+
+            var results = _repository.GetAllProducts();
+
+            //passing data to view
+            return View(results);
         }
     }
 }
