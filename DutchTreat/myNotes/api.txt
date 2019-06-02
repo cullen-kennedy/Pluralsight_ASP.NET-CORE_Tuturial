@@ -1,0 +1,149 @@
+﻿Build an api controller
+
+
+use verbs for different actions
+
+	ProductsController - 
+		expose api endpoints for.
+		web api was a seperate library in asp.net mvc
+		in asp.net core, its all one library
+
+		Same baseclass as views
+
+		_repository calls and deals with data
+		_logger shows any exception cases
+
+		Get
+			Returning json instead of Ienumerable<Product> allows
+			us to return a bad request
+			but it ties us into always returning json
+
+			CONTENT NEGOTIATION
+			return IActionResult 
+			wrap result in Ok() = 200
+			or BadRequest()
+
+			2.1 -  IActionResult<typetoreturn>
+				   ability to set data type returns as well as codes
+				   If you change to controller to controllerbase, you can
+				   get rid of Ok that converts response for a certain type
+				   Works for concrete types because an implicit operator is made
+
+				   the problem with ienumerable type is 
+				   c# doesn't allow conversions of interface types
+				   Solution:
+					Use Ok or use a list and tolist
+
+	[] attributes.. read more...
+	under the hood tooling...
+
+	need to go to startup
+
+	.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+	tell that we want the features that validate the response types, that is
+	an api controller, and validating what it produces
+
+/////////////////////////////////////////////////////////////////////////////
+
+	namespace DutchTreat.Controllers
+{
+    [Route("api/[Controller]")]
+    [ApiController]
+    [Produces("application/json")]
+    public class ProductsController : ControllerBase
+    {
+        private readonly IDutchRepository _repository;
+        private readonly ILogger<ProductsController> _logger;
+
+        public ProductsController(IDutchRepository repository, ILogger<ProductsController> logger)
+        {
+            _repository = repository;
+            _logger = logger;
+        }
+
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public ActionResult<IEnumerable<Product>> Get()
+        {
+            try
+            {
+                return Ok(_repository.GetAllProducts());
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Failed to get Products: {ex}");
+                return BadRequest("Failed to get products");
+            }
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+	Since DutchTreat is for out own use, we will just use IactionResult
+
+	add new method pattern
+	generate method in interface and then implement it
+
+	POST:
+		assumes data comes from query string
+		add FromBody
+
+		In http if you make a new object with post you need to return created
+
+
+validation in apis
+
+	contactviewmodel validated our previous form
+
+	we can do the same thing
+
+	But its messy and we're still using raw data
+
+using viewmodel mapping
+
+	AutoMapper Automapper dependency extensions
+
+	in startup we have to add it to the service collection
+
+	use the mapper to map from an order to an order view model
+	it will take the order that you pass in and return a mapped version of the
+	view model
+
+	we get a bad request - no instructions to map betwen an order and an orderview model
+	in startup addautomapper looks for profiles that are a way to set up the mappings
+
+	Data/DutchMappingProfile
+	will look at properties betwwen them and try to match them
+
+	_mapper.Map<Order, OrderViewModel>
+				input and output of the map
+	AutoMapper also has automapping of collections when objects are specified
+	also reversemap just does it for you in the opposite order
+
+	any mapping issues will show up in the console
+
+create association controllers
+
+	need another viewmodel for collections within orders
+
+	automapper will walk down the collection and try to map everything the best it
+	can
+
+	associationcontroller
+		look at different collections at different levels
+
+	To get Product info in items from order - copy?
+	flattening the products into the order item view model.
+	you can just add Product infront of the attribute and it identifies it
+
+
+use querystrings in api
+
+	?
+	example in OrdersController
+	just a parameter with a set default value
+
+pluralsight.com/courses/web-api-design
+
+pluralsight.com/courses/aspdotnetcore-implementing-securing-api

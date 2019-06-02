@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DutchTreat.Data;
 using DutchTreat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace DutchTreat
 {
@@ -29,12 +32,18 @@ namespace DutchTreat
             {
                 cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionString"));
             });
+
+            //deprecated?
+            services.AddAutoMapper();
+
             services.AddTransient<DutchSeeder>();
             //scoped for repo to be shared with any one complete scope
             //for reusing through a scope
             //You can change the second generic parameter to change the implementation for testing
             services.AddScoped<IDutchRepository, DutchRepository>();
-            services.AddMvc();
+            services.AddMvc()
+                   .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+                   .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IMailService, NullMailService>();
         }
 
