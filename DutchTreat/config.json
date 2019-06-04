@@ -8,7 +8,12 @@
   "Logging": {
     "LogLevel": {
       "Default": "Information",
-      "Microsoft":  "Warning"
+      "Microsoft": "Warning"
     }
+  },
+  "Tokens": {
+    "Key": "fdsf9sadfbiwa'fsaf ef'",
+    "Issuer": "http://localhost:8888",
+    "Audience": "users"
   }
 }

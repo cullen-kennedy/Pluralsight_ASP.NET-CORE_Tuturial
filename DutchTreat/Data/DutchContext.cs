@@ -1,4 +1,5 @@
 ﻿using DutchTreat.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data
 {
-    public class DutchContext : DbContext
+    public class DutchContext : IdentityDbContext<StoreUser>
     {
        public DutchContext(DbContextOptions<DutchContext> options): base(options)
        {
@@ -16,18 +17,19 @@ namespace DutchTreat.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.Entity<Order>()
-                .HasData(new Order()
-                {
-                    Id = 1,
-                    OrderDate = DateTime.UtcNow,
-                    OrderNumber = "12345"
-                });
+            builder.Entity<Product>()
+    .           Property(p => p.Price)
+    .           HasColumnType("decimal(18,2)");
 
+            builder.Entity<OrderItem>()
+              .Property(p => p.UnitPrice)
+              .HasColumnType("decimal(18,2)");
         }
+
     }
+  
 }

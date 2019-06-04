@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\ts\main.ts" />
+    <Content Remove="wwwroot\ts\storecustomer.ts" />
+    <Content Remove="wwwroot\ts\storecustomers.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\index.html" />
   </ItemGroup>
 
@@ -13,6 +19,10 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.5.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="OdeToCode.UseNodeModules" Version="1.0.6" />
   </ItemGroup>

@@ -1,0 +1,26 @@
+﻿Using Authorize attribute
+
+configuring identity
+
+	using same store
+
+storing identity with entity framework
+...
+
+using identity with api
+
+	cookies are easiest, but least secure
+	Open Id, OAuth2, or JWT Tokens
+
+	need to add cookie authentication
+	define the authentication you wish to support
+
+	add [Authorize] to controller
+
+	if we request orders in postman, we'll get a 200, but it will redirect to login page
+
+	tell it to use jwt scheme
+
+	now we get 401, redicrection is only a apartof the cookie authentication
+
+	MUST CREAT A TOKEN
