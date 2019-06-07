@@ -70,10 +70,12 @@ namespace DutchTreat.Controllers
             //    .OrderBy(p => p.Category)
             //    .ToList();
 
-            var results = _repository.GetAllProducts();
+            //var results = _repository.GetAllProducts();
 
-            //passing data to view
-            return View(results);
+            //now getting from api
+
+  
+            return View();
         }
     }
 }
