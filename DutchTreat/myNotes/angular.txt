@@ -13,3 +13,31 @@ ng build --watch recompiles as needed
 build component from scratch
 
 appcontroller find shop page
+
+------------------------------------------
+
+creating a service
+
+using http stack
+
+injectable to tell that when a class is injected it may need its own dependencies
+
+want to do something with the results in the interum,
+subscribe()? no why?
+
+use rxjs
+
+use pipe() and a list list of interceptors
+
+call subscribe in client using oninit
+
+using type safety
+
+product.ts describes shape of data we are expecting
+json2ts.com
+
+use observable?
+
+sharing data across components
+
+using calculated data

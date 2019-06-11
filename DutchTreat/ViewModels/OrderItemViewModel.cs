@@ -15,7 +15,7 @@ namespace DutchTreat.ViewModels
 
      
         public string ProductCategory { get; set; }
-        public decimal ProductSize { get; set; }
+        public string ProductSize { get; set; }
         public string ProductTitle { get; set; }
         public string ProductArtist { get; set; }
         public string ProductArtId { get; set; }
